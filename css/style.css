@@ -23,3 +23,26 @@ body {
     display: inline;
     margin: -25px;
 }
+.setting {
+    display: inline;
+    position: absolute;
+    transform: translate(-50%,-50%);
+}
+.setting div {
+    margin: 20px;
+}
+.setting p {
+    color: white;
+    display: inline;
+}
+.setting .check {
+    height: 1.5em;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    border: 1px solid white;
+    border-radius: 0.5em;
+    cursor: pointer;
+    color: white;
+    text-align: center;
+}

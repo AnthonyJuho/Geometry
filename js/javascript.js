@@ -49,6 +49,9 @@ for(let i = 0;i<time;i++) {
 
 }*/
 
+function px(px) {
+    return px+"px";
+}
 
 var pingpong = document.getElementById('pingpong');
 var pinginfo = {
@@ -63,21 +66,21 @@ var pinginfo = {
     size : 25 //radius
 };
 
-pingpong.style.width = 2*pinginfo.size+"px";
-pingpong.style.height = 2*pinginfo.size+"px";
-pingpong.style.margin = -pinginfo.size+"px";
+pingpong.style.width = px(2*pinginfo.size)
+pingpong.style.height = px(2*pinginfo.size);
+pingpong.style.margin = px(-pinginfo.size);
 
 //Start Location
-pingpong.style.left = Width/2+"px";
-pingpong.style.top = Height/2+"px";
+pingpong.style.left = px(Width/2);
+pingpong.style.top = px(Height/2);
 
 //set Random Speed
-pinginfo.speed.x = (Math.random()*2-1)*10;
-pinginfo.speed.y = (Math.random()*2-1)*10;
+pinginfo.speed.x = (Math.random()*2-1);
+pinginfo.speed.y = (Math.random()*2-1);
 
 function setLocation() {
-    pingpong.style.left = pinginfo.location.x+"px";
-    pingpong.style.top = pinginfo.location.y+"px";
+    pingpong.style.left = px(pinginfo.location.x);
+    pingpong.style.top = px(pinginfo.location.y);
 }
 
 function MovePingPong() {
@@ -100,8 +103,28 @@ function MovePingPong() {
 }
 
 //Repeating Function
-setInterval(function() {
+function Start() {
+    setInterval(function() {
     
-    MovePingPong();
+        MovePingPong();
+    
+    },10);
+}
 
-},10);
+//setting
+var setting = document.getElementById('setting');
+var input = {
+    speed : document.getElementById('speed'),
+    trace : document.getElementById('trace')
+}
+setting.style.left = px((Width)/2);
+setting.style.top = px((Height)/2);
+
+var check = document.getElementById('check');
+check.addEventListener('click', function() {
+    var multiply = input.speed.value;
+    pinginfo.speed.x *= multiply;
+    pinginfo.speed.y *= multiply;
+    setting.style.display = "none";
+    Start();
+});
