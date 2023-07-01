@@ -24,7 +24,7 @@ function Rainbow(angle) {
                    {red = 255, green = 0; blue = Math.round((360-angle)*4.25-0.01);} 
     return "rgb("+red+","+green+","+blue+")";
 }
-
+/*
 for(let i = 0;i<time;i++) {
 
     setTimeout(function () {
@@ -47,20 +47,61 @@ for(let i = 0;i<time;i++) {
         container.appendChild(circle);
     }, i*50);
 
+}*/
+
+
+var pingpong = document.getElementById('pingpong');
+var pinginfo = {
+    speed: {
+        x : 0,
+        y : 0
+    },
+    location: {
+        x : Width/2,
+        y : Height/2
+    },
+    size : 25 //radius
+};
+
+pingpong.style.width = 2*pinginfo.size+"px";
+pingpong.style.height = 2*pinginfo.size+"px";
+pingpong.style.margin = -pinginfo.size+"px";
+
+//Start Location
+pingpong.style.left = Width/2+"px";
+pingpong.style.top = Height/2+"px";
+
+//set Random Speed
+pinginfo.speed.x = (Math.random()*2-1)*10;
+pinginfo.speed.y = (Math.random()*2-1)*10;
+
+function setLocation() {
+    pingpong.style.left = pinginfo.location.x+"px";
+    pingpong.style.top = pinginfo.location.y+"px";
 }
 
-/*
-var ljh = document.getElementById('ljh');
-ljh.style.left = (Width/2-ljh.offsetWidth/2)+"px";
-ljh.style.top = (Height/2-ljh.offsetHeight/2)+"px";
+function MovePingPong() {
+    var x = pinginfo.location.x+pinginfo.speed.x;
+    var y = pinginfo.location.y+pinginfo.speed.y;
+    var isblocked = false;
+    if(x<pinginfo.size || x>Width-pinginfo.size) {
+        pinginfo.speed.x *= -1;
+        isblocked = true;
+    }
+    if(y<pinginfo.size || y>Height-pinginfo.size) {
+        pinginfo.speed.y *= -1;
+        isblocked = true;
+    }
+    if(!isblocked) {
+        pinginfo.location.x = x;
+        pinginfo.location.y = y;
+        setLocation();
+    }
+}
 
-var blinder = document.getElementById('blinder');
-blinder.style.height = Height+"px";
-blinder.style.top = "0px";
-for(let i = 0; i< time; i++) {
-    setTimeout(function () {
-        blinder.style.width = Width/time*(time-i)+"px";
-        blinder.style.left = Width/time*i+"px";
-        console.log(i);
-    }, i*10);
-}*/
+//Repeating Function
+setInterval(function() {
+    
+    MovePingPong();
+
+},10);
